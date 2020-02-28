@@ -109,3 +109,4 @@ venv.bak/
 
 # setting
 *.ini
+.DS_Store
