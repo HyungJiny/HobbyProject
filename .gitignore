@@ -110,3 +110,8 @@ venv.bak/
 # setting
 *.ini
 .DS_Store
+
+# data
+*.csv
+*.xlsx
+*.txt
