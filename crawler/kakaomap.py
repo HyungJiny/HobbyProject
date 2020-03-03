@@ -11,7 +11,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 # webdriver로 chrome 실행
-driver = webdriver.Chrome(config.get('Selenium', 'chromedriver'))
+driver = webdriver.Chrome(config.get('SELENIUM', 'chromedriver'))
 driver.implicitly_wait(5)
 
 def openKakaoMapPage():

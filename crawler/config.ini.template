@@ -1,0 +1,22 @@
+[SELENIUM]
+chromedriver = chromedriver/path(Download form https://chromedriver.chromium.org/)
+
+[COMUNITY]
+dcinside = http://gall.dcinside.com/board/lists/?id=
+
+[DC_GALL]
+drama = drama_new2
+lol = leagueoflegends2
+starcraft = starcraft_new
+football = football_k
+baseball_k = baseball_new7
+etc_program = etc_program2
+
+[TWITCH]
+nickname = twitch_user_nickname or id
+oauth_token = get oauth token from http://www.twitchapps.com/tmi/
+
+[OUTPUT_FILE]
+dcinside = /dirpath_for_saving/data/dcinside/
+naverTv = /dirpath_for_saving/data/naverTv/
+twitch = /dirpath_for_saving/data/twitch/
