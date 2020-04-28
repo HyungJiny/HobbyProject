@@ -33,8 +33,8 @@ def search(item):
     # 제품 검색
     driver.find_element_by_xpath('//*[@id="autocompleteWrapper"]/input[1]').send_keys(item)
     driver.find_element_by_xpath('//*[@id="autocompleteWrapper"]/input[1]').send_keys(Keys.ENTER)
-    time.sleep(1)
     print(item)
+    time.sleep(2)
 
 def page_wait(id):
     try:
@@ -44,28 +44,19 @@ def page_wait(id):
     finally:
         pass
 
-def move_review_page():
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    # 리뷰 페이지 링크 가져오기
-    links = soup.find('div',{'class':'info'}).find('span',{'class':'etc'}).findAll('a', href=True)
-    # driver.get(links[0].attrs['href'])
-    time.sleep(random.randrange(2,5))
-    return links[0].attrs['href']
-
 if __name__ == "__main__":
     today = date.today()
     input_filename = 'sample_db.csv'
     items = get_items_form_csv(input_filename)
-    with open('./output/{}-{}.csv'.format(input_filename.split('.')[0], today.strftime("%Y%m%d")), 'w') as output:
+    with open('./output/sample_link_db-{}.csv'.format(today.strftime("%Y%m%d")), 'w') as output:
         output.write('manufacture,name,link')
         for item in items:
             open_navershoppage()
             search(item.replace(',',' '))
             # page_wait('info')
-            time.sleep(3)
-            link = move_review_page()
-            
+            time.sleep(5)
+            link = driver.current_url
+            print(link)
             output.write('\n{item},{link}'.format(item=item, link=link))
             time.sleep(random.randrange(2,4))
     
