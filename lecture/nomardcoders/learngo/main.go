@@ -1,34 +1,29 @@
 package main
 
 import (
-	"fmt"
+	"os"
 	"strings"
 
-	"github.com/HyungJiny/learngo/mydict"
+	"github.com/HyungJiny/learngo/scrapper"
+	"github.com/labstack/echo"
 )
 
-func printAll(words ...string) {
-	fmt.Println(words)
+const fileName string = "jobs.csv"
+
+func handleHome(c echo.Context) error {
+	return c.File("home.html")
 }
 
-func lenAndUpper(name string) (int, string) {
-	return len(name), strings.ToUpper(name)
-}
-
-func multiply(a, b int) int {
-	return a * b
+func handleScrape(c echo.Context) error {
+	defer os.Remove(fileName)
+	term := strings.ToLower(scrapper.CleanString(c.FormValue("term")))
+	scrapper.Scrape(term)
+	return c.Attachment(fileName, fileName)
 }
 
 func main() {
-	dictionary := mydict.Dictionary{}
-	baseWord := "hello"
-	dictionary.Add(baseWord, "First")
-	dictionary.Search(baseWord)
-	dictionary.Delete(baseWord)
-	word, err := dictionary.Search(baseWord)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(word)
-	}
+	e := echo.New()
+	e.GET("/", handleHome)
+	e.POST("/scrape", handleScrape)
+	e.Logger.Fatal(e.Start(":1323"))
 }
